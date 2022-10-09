@@ -1,0 +1,92 @@
+{
+  "uuid": "3027ec57-f6de-4e72-b9e3-a5f5f88335b9",
+  "lastMigration": 22,
+  "name": "Mock",
+  "endpointPrefix": "bff",
+  "latency": 0,
+  "port": 8102,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "f532a510-af9d-48c6-94e0-addcc8ecabeb",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v1/products",
+      "responses": [
+        {
+          "uuid": "20ee91c6-73f7-4d5a-b73e-2261cd221598",
+          "body": "[\n  {{#repeat 10}}\n  {\n    \"id\": \"{{ faker 'random.uuid' }}\",\n    \"code\": \"{{ faker 'random.number' min=1 max=9999 }}\",\n    \"name\": \"{{ faker 'name.firstName' }} {{ faker 'name.lastName' }}\"\n  },\n  {{/repeat}}\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "26bb7733-3ae8-4999-8b62-8f5cb13a7b87",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v1/categories",
+      "responses": [
+        {
+          "uuid": "59c3e674-8db2-46f4-ad57-009a4d708353",
+          "body": "[\n  {\n    \"id\": \"{{ faker 'random.uuid' }}\"\n    \"name\": \"Atacado\"\n  },\n  {\n    \"id\": \"{{ faker 'random.uuid' }}\"\n    \"name\": \"Varejo\"\n  },\n  {\n    \"id\": \"{{ faker 'random.uuid' }}\"\n    \"name\": \"Internacional\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}
