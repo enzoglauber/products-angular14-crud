@@ -1,4 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+@import './sass/index';
+
 body {
   margin: 0;
 }
+*:not(mat-icon) {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+

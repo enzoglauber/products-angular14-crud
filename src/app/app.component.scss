@@ -1,33 +1,50 @@
-mat-toolbar {
-  background: #FF7200;
-  color: white;
-}
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import 'bootstrap/scss/mixins';
 
-mat-sidenav-container {
-  height: calc(100vh - 4.0625rem);
+:host {
 
-  mat-sidenav {
-    margin: 1rem;
-    width: 12.5rem;
-    border-right: none;
-    background: #140083;
-    color: white;
-    padding: 1rem;
-    text-align: center;
+  // mat-toolbar {
+  //   background: #FF7200;
+  //   color: white;
+  // }
+
+  mat-sidenav-container {
+    height: calc(100vh - 4.0625rem);
+
+    mat-sidenav {
+      margin: 1rem;
+      width: 12.5rem;
+      border-right: none;
+      background: #140083;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    mat-sidenav-content {
+      .content {
+        min-height: calc(100vh - 6.125rem);
+        margin: 1rem;
+        margin-left: 2rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+
+        color: gray;
+        height: auto;
+      }
+    }
   }
 
-  mat-sidenav-content {
-    .content {
-      min-height: calc(100vh - 6.125rem);
-      margin: 1rem;
-      margin-left: 2rem;
-
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-
-      color: gray;
-      height: auto;
+  @include media-breakpoint-down(md) {
+    mat-sidenav-container {
+      mat-sidenav-content .content {
+        margin: 0;
+        box-shadow: none;
+        min-height: calc(100vh - 65px);
+      }
     }
   }
 }

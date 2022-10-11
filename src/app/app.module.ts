@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ProductModule } from '@features/product/product.module';
 import { SharedModule } from '@shared/shared.module';
-import { QuicklinkModule } from 'ngx-quicklink';
 
 import { AppComponent } from './app.component';
 import { APP_EXTRA_OPTIONS, APP_ROUTES } from './app.routes';
@@ -19,7 +18,6 @@ import { APP_EXTRA_OPTIONS, APP_ROUTES } from './app.routes';
 
     SharedModule,
     ProductModule,
-    QuicklinkModule,
     RouterModule.forRoot([...APP_ROUTES], {...APP_EXTRA_OPTIONS}),
   ],
   providers: [],

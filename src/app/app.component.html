@@ -7,17 +7,19 @@
       close
     </mat-icon>
   </button>
-  Store
+  <div class="d-flex align-items-end">
+    <img src="assets/img/branch.png" width="42" class="m-1">
+    <div>Store</div>
+  </div>
 </mat-toolbar>
 
 
 <mat-sidenav-container>
-  <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+  <mat-sidenav #sidenav="matSidenav" class="mat-primary mat-elevation-z8">
     <app-sidebar></app-sidebar>
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="content mat-elevation-z8">
-      navbar
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

@@ -1,1 +1,37 @@
-<p>product-list works!</p>
+<ng-container *ngIf="products$ | async as products">
+  <app-product-filter></app-product-filter>
+
+  <ng-container *ngIf="products.length > 0">
+
+    <div *ngIf="feedback.length" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+
+    <table mat-table #table [dataSource]="products">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+        <mat-cell *matCellDef="let item"> {{item.id}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="code">
+        <mat-header-cell *matHeaderCellDef> Code </mat-header-cell>
+        <mat-cell *matCellDef="let item"> {{item.code}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let item"> {{item.name}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+        <mat-cell *matCellDef="let item"> {{item.category}} </mat-cell>
+        <!-- <mat-cell *matCellDef="let item"> {{item.category | category}} </mat-cell> -->
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row
+        *matRowDef="let row; columns: displayedColumns;"
+        [routerLink]="['/products', row.id]"
+      ></mat-row>
+    </table>
+  </ng-container>
+
+  <app-product-add></app-product-add>
+</ng-container>
+

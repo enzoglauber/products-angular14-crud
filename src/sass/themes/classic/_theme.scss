@@ -1,0 +1,31 @@
+@use 'sass:map';
+@use 'palette';
+@use '@angular/material' as mat;
+
+$classic-primary: mat.define-palette(palette.$primary, 700, 300, 900);
+$classic-accent: mat.define-palette(palette.$accent,  700, 300, 900);
+$classic-warn: mat.define-palette(mat.$red-palette, 700);
+
+$classic-theme: mat.define-light-theme(
+  $classic-primary,
+  $classic-accent,
+  $classic-warn
+);
+
+@mixin custom-components-theme($theme) {
+  $primary: map.get($theme, primary);
+
+  .mat-toolbar {
+    background: mat.get-color-from-palette($primary);
+    color: mat.get-color-from-palette($primary, default-contrast);
+  }
+}
+
+.itau-theme {
+  & {
+    @include mat.all-component-themes($classic-theme);
+    @include custom-components-theme($classic-theme);
+  }
+}
+
+

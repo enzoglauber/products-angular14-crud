@@ -1,0 +1,39 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import 'bootstrap/scss/mixins';
+
+:host {
+  form {
+    display: flex;
+    flex: 1;
+    gap: 1rem;
+    padding: 0 0.75rem;
+    align-items: center;
+    justify-content: space-between;
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    form {
+      display: block;
+      padding: 0 1.75rem;
+
+      mat-form-field {
+        display: block;
+        mat-select {
+          max-width: 100%;
+        }
+      }
+      button {
+        margin-bottom: 1rem;
+        float: right;
+      }
+    }
+  }
+  .mat-select-panel {
+    min-width: 100% !important;
+  }
+}
