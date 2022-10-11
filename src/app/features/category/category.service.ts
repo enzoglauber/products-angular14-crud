@@ -3,22 +3,23 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, distinctUntilChanged, map, ReplaySubject, share, timer } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import { Product } from './product';
+import { Category } from './category';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class CategoryService {
   CACHE_TIMEOUT = 2000;
 
-  private _products = new BehaviorSubject<Product[]>([]);
-  public products$ = this._products.asObservable().pipe(distinctUntilChanged());
+  private _categories = new BehaviorSubject<Category[]>([]);
+  public categories$ = this._categories.asObservable().pipe(distinctUntilChanged());
 
   constructor(private http: HttpClient) {}
 
   getAll() {
-    return this.http.get<Product[]>(`${environment.bff}/v1/products`).pipe(
-      map(this.nextProducts),
+    return this.http.get<Category[]>(`${environment.bff}/v1/categories`).pipe(
+      map(this.next),
       share({
         connector: () => new ReplaySubject(1),
         resetOnComplete: () => timer(this.CACHE_TIMEOUT)
@@ -26,12 +27,8 @@ export class ProductService {
     );
   }
 
-  private nextProducts = (value: Product[]): Product[] => {
-    this._products.next(value);
+  private next = (value: Category[]): Category[] => {
+    this._categories.next(value);
     return value;
-  }
-
-  getProduct(id: number) {
-    return this.http.get<Product>(`${environment.bff}/v1/products/${id}`);
   }
 }

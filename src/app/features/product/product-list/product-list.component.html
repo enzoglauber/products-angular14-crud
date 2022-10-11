@@ -2,9 +2,6 @@
   <app-product-filter></app-product-filter>
 
   <ng-container *ngIf="products.length > 0">
-
-    <div *ngIf="feedback.length" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
-
     <table mat-table #table [dataSource]="products">
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
@@ -21,7 +18,6 @@
       <ng-container matColumnDef="category">
         <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
         <mat-cell *matCellDef="let item"> {{item.category}} </mat-cell>
-        <!-- <mat-cell *matCellDef="let item"> {{item.category | category}} </mat-cell> -->
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

@@ -14,30 +14,13 @@ import { ProductService } from '../product.service';
 })
 export class ProductListComponent implements OnInit {
   products$!: Observable<Product[]>;
-  feedback: any = {};
-  filter = new ProductFilter();
-  displayedColumns = ['id', 'code', 'name', 'category'];
+  filter = new ProductFilter();  displayedColumns = ['id', 'code', 'name', 'category'];
 
-  constructor(private product: ProductService) {}
+  constructor(
+    private productService: ProductService
+  ) {}
 
   ngOnInit(): void {
-    this.products$ = this.product.getProducts();
-    // this.search();
+    this.products$ = this.productService.products$;
   }
-
-  // delete(Product: Product): void {
-  //   if (confirm('Are you sure?')) {
-  //     this.ProductService.delete(Product).subscribe(() => {
-  //         this.feedback = {type: 'success', message: 'Delete was successful!'};
-  //         setTimeout(() => {
-  //           this.search();
-  //         }, 1000);
-  //       },
-  //       err => {
-  //         this.feedback = {type: 'warning', message: 'Error deleting.'};
-  //       }
-  //     );
-  //   }
-  // }
-
 }
