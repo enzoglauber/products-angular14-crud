@@ -21,6 +21,6 @@ export class ProductListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.products$ = this.productService.products$;
+    this.products$ = this.productService.all$;
   }
 }

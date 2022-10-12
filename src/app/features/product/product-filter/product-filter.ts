@@ -1,4 +1,4 @@
 export class ProductFilter {
-  from = '';
-  to = '';
+  code!: string;
+  category!: string;
 }

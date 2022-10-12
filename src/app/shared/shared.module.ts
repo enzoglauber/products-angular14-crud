@@ -10,7 +10,7 @@ const modules = [
   ConfigModule,
   QuicklinkModule,
   MaterialModule,
-  ComponentsModule
+  ComponentsModule,
 ];
 @NgModule({
   declarations: [],

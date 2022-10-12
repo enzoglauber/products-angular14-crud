@@ -17,3 +17,15 @@ A experiência de uso fica a seu critério, seja criativo.
 
 -> Usei a estratégia de pré-carregamento Quicklink, que pré-carrega apenas as rotas associadas aos links na página atual.
   link: https://web.dev/i18n/pt/route-preloading-in-angular/
+-> Aplicação responsiva
+-> Mobile first
+
+
+
+Criei um serviço de produtos
+Lista de Produtos com pipe async e timing cache
+Resolver para o Product edit
+Um progress loader com observable no app-component
+  https://github.com/DMezhenskyi/angular-router-resolve/blob/master/src/app/user/user-list.component.ts
+Arrumar o Jest
+Testes unitarios

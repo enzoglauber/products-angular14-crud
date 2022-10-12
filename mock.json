@@ -15,7 +15,7 @@
       "responses": [
         {
           "uuid": "20ee91c6-73f7-4d5a-b73e-2261cd221598",
-          "body": "[\n  {{#repeat 10}}\n  {\n    \"id\": \"{{ faker 'random.uuid' }}\",\n    \"code\": {{ faker 'random.number' min=1 max=9999 }},\n    \"name\": \"{{ faker 'name.firstName' }} {{ faker 'name.lastName' }}\",\n    \"category\": {{someOf (array 1 2 3) 1 1 }}\n  },\n  {{/repeat}}\n]",
+          "body": "[\r\n  {{setVar 'random' (oneOf (array 1 2 3))}}\r\n  {{#if (urlParam 'code')}}\r\n  {{# repeat (faker 'datatype.number' min=1 max=4) }}\r\n  {\r\n    \"id\": \"{{ faker 'random.uuid' }}\",\r\n    \"code\": {{queryParam 'code'}},\r\n    \"name\": \"{{ faker 'name.firstName' }} {{ faker 'name.lastName' }}\",\r\n    \"category\": {{queryParam 'category' random}}\r\n  },\r\n  {{/repeat}}\r\n  {{else if (urlParam 'category')}}\r\n  {{# repeat (faker 'datatype.number' min=1 max=4) }}\r\n  {\r\n    \"id\": \"{{ faker 'random.uuid' }}\",\r\n    \"code\": {{queryParam 'code'}},\r\n    \"name\": \"{{ faker 'name.firstName' }} {{ faker 'name.lastName' }}\",\r\n    \"category\": {{queryParam 'category' random}}\r\n  },\r\n  {{/repeat}}\r\n  {{else}}\r\n  {{# repeat (faker 'datatype.number' min=7 max=10) }}\r\n  {\r\n    \"id\": \"{{ faker 'random.uuid' }}\",\r\n    \"code\": {{@index}},\r\n    \"name\": \"{{ faker 'name.firstName' }} {{ faker 'name.lastName' }}\",\r\n    \"category\": {{queryParam 'category' random}}\r\n  },\r\n  {{/repeat}}\r\n  {{/if}}\r\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "",
@@ -40,7 +40,7 @@
       "responses": [
         {
           "uuid": "59c3e674-8db2-46f4-ad57-009a4d708353",
-          "body": "[\n  {\n    \"id\": 1\n    \"name\": \"Atacado\"\n  },\n  {\n    \"id\": 2\n    \"name\": \"Varejo\"\n  },\n  {\n    \"id\": 3\n    \"name\": \"Internacional\"\n  }\n]",
+          "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Atacado\"\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Varejo\"\n  },\n  {\n    \"id\": 3,\n    \"name\": \"Internacional\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "",

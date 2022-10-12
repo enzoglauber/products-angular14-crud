@@ -1,7 +1,7 @@
-<ng-container *ngIf="products$ | async as products">
+<ng-container>
   <app-product-filter></app-product-filter>
 
-  <ng-container *ngIf="products.length > 0">
+  <ng-container *ngIf="products$ | async as products">
     <table mat-table #table [dataSource]="products">
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
