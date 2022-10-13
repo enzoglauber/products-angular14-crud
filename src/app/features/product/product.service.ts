@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import {
   BehaviorSubject,
@@ -11,6 +12,7 @@ import {
   ReplaySubject,
   share,
   switchMap,
+  tap,
   timer,
 } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -38,7 +40,8 @@ export class ProductService {
 
   constructor(
     private http: HttpClient,
-    protected router: Router,
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   getAll = () => {
@@ -72,7 +75,9 @@ export class ProductService {
     console.log('delete', entity);
     if (entity.id) {
       const url = `${environment.bff}/v1/products/${entity.id.toString()}`
-      return this.http.delete<Product>(url).pipe(map(this.success));
+      return this.http.delete<Product>(url).pipe(map(this.success)).pipe(
+        tap(() => this.snackBar.open('Removed successfully!', undefined, {duration: 3000}))
+      );
     }
     return EMPTY;
   }
@@ -105,6 +110,7 @@ export class ProductService {
   }
 
   public success = (product: Product): Product => {
+    this.snackBar.open('Saved successfully!', undefined, {duration: 3000});
     this.router.navigate(['/products']);
     return product;
   }

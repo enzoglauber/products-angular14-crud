@@ -1,17 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { MaterialModule } from '@shared/material.module';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 
-
+const MATERIAL = [
+  MatButtonModule,
+  MatIconModule
+];
 
 @NgModule({
   imports: [
     CommonModule,
-    MaterialModule,
-    RouterModule
+    RouterModule,
+
+    ...MATERIAL
   ],
   declarations: [
     SidebarComponent

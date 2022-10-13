@@ -1,3 +1,4 @@
+<h2 class="m-2">Edit Product</h2>
 <form [formGroup]="form" (ngSubmit)="save()">
   <div class="container">
     <div class="row">
@@ -50,6 +51,12 @@
 
     <div class="row">
       <div class="col d-flex">
+        <button type="button" mat-stroked-button color="accent" [routerLink]="['./products']">
+          Voltar
+        </button>
+      </div>
+
+      <div class="col d-flex justify-content-center">
         <button
           type="button"
           mat-raised-button
@@ -58,10 +65,11 @@
         > Remove
         </button>
       </div>
+
       <div class="col d-flex justify-content-end">
         <button
           type="submit"
-          mat-stroked-button
+          mat-raised-button
           color="primary"
         > Save
         </button>

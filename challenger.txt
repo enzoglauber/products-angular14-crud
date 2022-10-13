@@ -15,17 +15,21 @@ Faça uma breve descrição da solução adotada.
 Pode mockar as informações e persistir em algum local temporário.
 A experiência de uso fica a seu critério, seja criativo.
 
+-> Mobile first
+-> Aplicação responsiva
+-> Tema com as cores do Itaú para o Angular Material
+-> Serviço de produtos
+-> Serviço de categorias
+-> Pipe de categoria na lista de produtos
+-> Resolver para o edição do produto
+-> Progress loader com observable no carregamento do produto para edição
+-> Lista de Produtos com pipe async e timing cache
+-> Mock feito com moockon
 -> Usei a estratégia de pré-carregamento Quicklink, que pré-carrega apenas as rotas associadas aos links na página atual.
   link: https://web.dev/i18n/pt/route-preloading-in-angular/
--> Aplicação responsiva
--> Mobile first
 
 
-
-Criei um serviço de produtos
-Lista de Produtos com pipe async e timing cache
-Resolver para o Product edit
-Um progress loader com observable no app-component
-  https://github.com/DMezhenskyi/angular-router-resolve/blob/master/src/app/user/user-list.component.ts
+moockon cli no package.json
+READ.ME
 Arrumar o Jest
 Testes unitarios

@@ -1,3 +1,9 @@
+<mat-progress-bar
+  *ngIf="isLoading$ | async"
+  mode="buffer"
+  style="position: absolute;"
+></mat-progress-bar>
+
 <mat-toolbar class="mat-elevation-z8">
   <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
     <mat-icon *ngIf="!sidenav.opened">

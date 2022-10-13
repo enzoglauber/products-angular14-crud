@@ -15,7 +15,7 @@
       "responses": [
         {
           "uuid": "20ee91c6-73f7-4d5a-b73e-2261cd221598",
-          "body": "[\r\n  {{#if (urlParam 'code')}}\r\n  {{# repeat (faker 'datatype.number' min=1 max=4) }}\r\n  {{setVar 'random' (oneOf (array 1 2 3))}}\r\n  {\r\n    \"id\": \"{{ faker 'random.uuid' }}\",\r\n    \"code\": {{queryParam 'code'}},\r\n    \"name\": \"{{ faker 'name.firstName' }} {{ faker 'name.lastName' }}\",\r\n    \"category\": {{queryParam 'category' random}}\r\n  },\r\n  {{/repeat}}\r\n  {{else if (urlParam 'category')}}\r\n  {{# repeat (faker 'datatype.number' min=1 max=4) }}\r\n  {{setVar 'random' (oneOf (array 1 2 3))}}\r\n  {\r\n    \"id\": \"{{ faker 'random.uuid' }}\",\r\n    \"code\": {{queryParam 'code'}},\r\n    \"name\": \"{{ faker 'name.firstName' }} {{ faker 'name.lastName' }}\",\r\n    \"category\": {{queryParam 'category' random}}\r\n  },\r\n  {{/repeat}}\r\n  {{else}}\r\n  {{# repeat (faker 'datatype.number' min=7 max=10) }}\r\n  {{setVar 'random' (oneOf (array 1 2 3))}}\r\n  {\r\n    \"id\": \"{{ faker 'random.uuid' }}\",\r\n    \"code\": {{@index}},\r\n    \"name\": \"{{ faker 'name.firstName' }} {{ faker 'name.lastName' }}\",\r\n    \"category\": {{queryParam 'category' random}}\r\n  },\r\n  {{/repeat}}\r\n  {{/if}}\r\n]",
+          "body": "[\r\n  {{#if (urlParam 'category')}}\r\n  {{# repeat (faker 'datatype.number' min=1 max=4) }}\r\n  {{setVar 'random' (oneOf (array 1 2 3))}}\r\n  {\r\n    \"id\": \"{{ faker 'random.uuid' }}\",\r\n    \"code\": {{queryParam 'code'}},\r\n    \"name\": \"{{ faker 'name.firstName' }} {{ faker 'name.lastName' }}\",\r\n    \"category\": {{queryParam 'category' random}}\r\n  },\r\n  {{/repeat}}\r\n  {{else if (urlParam 'code')}}\r\n  {{# repeat (faker 'datatype.number' min=1 max=4) }}\r\n  {{setVar 'random' (oneOf (array 1 2 3))}}\r\n  {\r\n    \"id\": \"{{ faker 'random.uuid' }}\",\r\n    \"code\": {{queryParam 'code'}},\r\n    \"name\": \"{{ faker 'name.firstName' }} {{ faker 'name.lastName' }}\",\r\n    \"category\": {{queryParam 'category' random}}\r\n  },\r\n  {{/repeat}}\r\n  {{else}}\r\n  {{# repeat (faker 'datatype.number' min=7 max=10) }}\r\n  {{setVar 'random' (oneOf (array 1 2 3))}}\r\n  {\r\n    \"id\": \"{{ faker 'random.alpha' 10 }}\",\r\n    \"code\": {{@index}},\r\n    \"name\": \"{{ faker 'name.firstName' }} {{ faker 'name.lastName' }}\",\r\n    \"category\": {{queryParam 'category' random}}\r\n  },\r\n  {{/repeat}}\r\n  {{/if}}\r\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "",
@@ -91,7 +91,7 @@
         {
           "uuid": "940fec04-6be1-44dd-8e12-08b2b1f3baf7",
           "body": "{\r\n  \"id\": \"{{body 'id'}}\",\r\n  \"code\": {{body 'code'}},\r\n  \"name\": \"{{ body 'name' }}\",\r\n  \"category\": {{body 'category'}}\r\n}",
-          "latency": 0,
+          "latency": 2000,
           "statusCode": 200,
           "label": "",
           "headers": [],
