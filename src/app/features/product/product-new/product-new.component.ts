@@ -25,7 +25,7 @@ export class ProductNewComponent implements OnInit {
     const asyncValidators = [this.check];
 
     this.form = new FormGroup({
-      code: new FormControl('', { validators, asyncValidators }),
+      code: new FormControl('', {validators, asyncValidators}),
       name: new FormControl('', {validators}),
       category: new FormControl('', {validators}),
     });

@@ -24,8 +24,6 @@ export class ProductFilterComponent implements OnInit {
       code: [''],
       category: ['']
     });
-
-    this.productService.setFilter(this.form.getRawValue());
   }
 
   submit(): void {

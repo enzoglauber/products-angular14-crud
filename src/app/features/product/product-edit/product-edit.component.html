@@ -1,1 +1,62 @@
-<p>product-edit works!</p>
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>ID</mat-label>
+            <input matInput type="text" formControlName="id" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="standard">
+          <mat-label>Code</mat-label>
+          <input matInput type="number" formControlName="code">
+          <mat-error *ngIf="code?.errors?.['exists']">
+            This code already exists in the database
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="standard">
+          <mat-label>Name</mat-label>
+          <input matInput type="text" formControlName="name">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="standard">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category">
+            <mat-option value="">-- All --</mat-option>
+            <mat-option
+              *ngFor="let category of categories$ | async as categories"
+              [value]="category.id"
+            >
+              {{category.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col d-flex justify-content-end">
+        <button
+          type="submit"
+          mat-stroked-button
+          color="primary"
+        > Save
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

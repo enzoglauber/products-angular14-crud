@@ -23,7 +23,7 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row
         *matRowDef="let row; columns: displayedColumns;"
-        [routerLink]="['/products', row.id]"
+        [routerLink]="['/products/edit', row.id]"
       ></mat-row>
     </table>
   </ng-container>

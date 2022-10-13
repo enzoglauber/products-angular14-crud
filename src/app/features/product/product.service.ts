@@ -1,5 +1,6 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   BehaviorSubject,
   debounceTime,
@@ -24,6 +25,9 @@ export class ProductService {
 
   private _products = new BehaviorSubject<Product[]>([]);
   public products$ = this._products.asObservable().pipe(distinctUntilChanged());
+  get products(): Product[] {
+    return this._products.getValue()
+  }
 
   private _filter = new BehaviorSubject<ProductFilter>({ code: '', category: '' });
   public filter$ = this._filter.asObservable().pipe(distinctUntilChanged(), debounceTime(300));
@@ -31,46 +35,40 @@ export class ProductService {
     return this._filter.getValue()
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    protected router: Router,
+  ) {}
 
   getAll = () => {
     const params = this.params(this.filter)
     return this.http.get<Product[]>(`${environment.bff}/v1/products`, {params}).pipe(
-      map(this.nextProducts),
+      map(this.nextProducts)
+    );
+  }
+
+  getOne = (id: number) => {
+    return this.http.get<Product>(`${environment.bff}/v1/products/${id}`).pipe(
+      share({
+        connector: () => new ReplaySubject(1),
+        resetOnComplete: () => timer(this.CACHE_TIMEOUT)
+      })
     );
   }
 
   save = (entity: Product): Observable<Product> => {
     console.log('entity', entity)
     if (entity.id) {
-      return this.http.put<Product>(`${environment.bff}/v1/products`, entity).pipe(
-        map((product) => {
-          console.log('edit', product);
-          return product;
-        })
-      );
+      return this.http.put<Product>(`${environment.bff}/v1/products`, entity)
+              .pipe(map(this.success));
     } else {
-      return this.http.post<Product>(`${environment.bff}/v1/products`, entity).pipe(
-        map((product) => {
-          console.log('add', product);
-          return product;
-        })
-      );
+      return this.http.post<Product>(`${environment.bff}/v1/products`, entity)
+              .pipe(map(this.success));
     }
   }
 
   check = (entity: Partial<Product>): Observable<void> => {
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      })
-    };
-    return this.http.post<void>(`${environment.bff}/v1/products/check`, entity, options).pipe(
-      map((product) => {
-        console.log('check', product);
-        return product;
-      })
-    );
+    return this.http.post<void>(`${environment.bff}/v1/products/check`, entity);
   }
 
   get all$(): Observable<any> {
@@ -84,15 +82,6 @@ export class ProductService {
     return value;
   }
 
-  getProduct(id: number) {
-    return this.http.get<Product>(`${environment.bff}/v1/products/${id}`).pipe(
-      share({
-        connector: () => new ReplaySubject(1),
-        resetOnComplete: () => timer(this.CACHE_TIMEOUT)
-      })
-    )
-  }
-
   public setFilter = (value: ProductFilter): void => {
     this._filter.next(value);
   }
@@ -103,5 +92,10 @@ export class ProductService {
       params = (!!value) ? params.append(key, value.toString()) : params;
       return params;
     }, parms);
+  }
+
+  public success = (product: Product): Product => {
+    this.router.navigate(['/products']);
+    return product;
   }
 }
