@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   BehaviorSubject,
@@ -37,6 +37,39 @@ export class ProductService {
     const params = this.params(this.filter)
     return this.http.get<Product[]>(`${environment.bff}/v1/products`, {params}).pipe(
       map(this.nextProducts),
+    );
+  }
+
+  save = (entity: Product): Observable<Product> => {
+    console.log('entity', entity)
+    if (entity.id) {
+      return this.http.put<Product>(`${environment.bff}/v1/products`, entity).pipe(
+        map((product) => {
+          console.log('edit', product);
+          return product;
+        })
+      );
+    } else {
+      return this.http.post<Product>(`${environment.bff}/v1/products`, entity).pipe(
+        map((product) => {
+          console.log('add', product);
+          return product;
+        })
+      );
+    }
+  }
+
+  check = (entity: Partial<Product>): Observable<void> => {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+    return this.http.post<void>(`${environment.bff}/v1/products/check`, entity, options).pipe(
+      map((product) => {
+        console.log('check', product);
+        return product;
+      })
     );
   }
 

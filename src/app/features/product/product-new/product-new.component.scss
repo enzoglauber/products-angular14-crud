@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  flex-grow: 1;
+  height: 100%;
+  form {
+    display: flex;
+    padding: 0 1.75rem;
+    flex-grow: 1;
+
+    mat-form-field {
+      display: block;
+    }
+  }
+}

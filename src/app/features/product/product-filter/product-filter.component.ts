@@ -20,9 +20,6 @@ export class ProductFilterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.productService.filter$.subscribe(console.log);
-    // this.productService.all$.subscribe(console.log);
-
     this.form = this.fb.group({
       code: [''],
       category: ['']
