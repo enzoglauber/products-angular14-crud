@@ -49,6 +49,15 @@
     </div>
 
     <div class="row">
+      <div class="col d-flex">
+        <button
+          type="button"
+          mat-raised-button
+          color="warn"
+          (click)="delete(form.value)"
+        > Remove
+        </button>
+      </div>
       <div class="col d-flex justify-content-end">
         <button
           type="submit"

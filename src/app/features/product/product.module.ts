@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
+import { CategoryPipe } from '@features/category/category.pipe';
 
 import { ProductAddComponent } from './product-add/product-add.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
@@ -39,7 +40,8 @@ const MATERIAL = [
     ProductEditComponent,
     ProductListComponent,
     ProductFilterComponent,
-    ProductNewComponent
+    ProductNewComponent,
+    CategoryPipe
   ]
 })
 export class ProductModule { }

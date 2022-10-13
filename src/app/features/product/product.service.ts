@@ -5,6 +5,7 @@ import {
   BehaviorSubject,
   debounceTime,
   distinctUntilChanged,
+  EMPTY,
   map,
   Observable,
   ReplaySubject,
@@ -65,6 +66,15 @@ export class ProductService {
       return this.http.post<Product>(`${environment.bff}/v1/products`, entity)
               .pipe(map(this.success));
     }
+  }
+
+  delete = (entity: Product): Observable<Product> => {
+    console.log('delete', entity);
+    if (entity.id) {
+      const url = `${environment.bff}/v1/products/${entity.id.toString()}`
+      return this.http.delete<Product>(url).pipe(map(this.success));
+    }
+    return EMPTY;
   }
 
   check = (entity: Partial<Product>): Observable<void> => {

@@ -58,54 +58,6 @@
       "responseMode": null
     },
     {
-      "uuid": "3f1b4e76-99fd-4e80-a3b6-10feea4381ab",
-      "documentation": "CHECK CODE",
-      "method": "post",
-      "endpoint": "v1/products/check",
-      "responses": [
-        {
-          "uuid": "d7fa1708-ce75-4f05-823e-aec7dd33dcd0",
-          "body": "{exist: true}",
-          "latency": 0,
-          "statusCode": 422,
-          "label": "Error",
-          "headers": [],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [
-            {
-              "target": "body",
-              "modifier": "code",
-              "value": "66",
-              "invert": false,
-              "operator": "equals"
-            }
-          ],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false,
-          "default": false
-        },
-        {
-          "uuid": "8b4b6632-e9c0-4aee-8888-103cb373713b",
-          "body": "",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "",
-          "headers": [],
-          "filePath": "",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false,
-          "default": true
-        }
-      ],
-      "enabled": true,
-      "responseMode": null
-    },
-    {
       "uuid": "72963bde-84c1-4c36-8e31-a1d16356891c",
       "documentation": "ADD",
       "method": "post",
@@ -159,11 +111,59 @@
       "uuid": "8dd13b08-451c-455a-a849-a603e978e0e7",
       "documentation": "REMOVE",
       "method": "delete",
-      "endpoint": "v1/products",
+      "endpoint": "v1/products/:id",
       "responses": [
         {
           "uuid": "a49c3e82-2e2d-4227-b935-e8c6d0471701",
-          "body": "{\r\n  \"id\": \"{{ faker 'random.uuid' }}\",\r\n  \"code\": {{body 'code'}},\r\n  \"name\": \"{{ body 'name' }}\",\r\n  \"category\": {{body 'category'}}\r\n}",
+          "body": "{\r\n  \"id\": \"{{urlParam 'id'}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "3f1b4e76-99fd-4e80-a3b6-10feea4381ab",
+      "documentation": "CHECK CODE",
+      "method": "post",
+      "endpoint": "v1/products/check",
+      "responses": [
+        {
+          "uuid": "d7fa1708-ce75-4f05-823e-aec7dd33dcd0",
+          "body": "{exist: true}",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "Error",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "code",
+              "value": "66",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "8b4b6632-e9c0-4aee-8888-103cb373713b",
+          "body": "",
           "latency": 0,
           "statusCode": 200,
           "label": "",

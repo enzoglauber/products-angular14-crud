@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '@features/category/category.service';
 import { catchError, mergeMap, Observable, of, pluck, timer } from 'rxjs';
 
+import { Product } from '../product';
 import { ProductService } from '../product.service';
 
 @Component({
@@ -44,6 +45,12 @@ export class ProductEditComponent implements OnInit {
   save = () => {
     const entity = this.form.getRawValue();
     this.productService.save(entity).subscribe();
+  }
+
+  delete(product: Product): void {
+    if (confirm('Are you sure?')) {
+      this.productService.delete(product).subscribe();
+    }
   }
 
   check = (control: AbstractControl): Observable<any> => {

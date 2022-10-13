@@ -14,6 +14,9 @@ export class CategoryService {
 
   private _categories = new BehaviorSubject<Category[]>([]);
   public categories$ = this._categories.asObservable().pipe(distinctUntilChanged());
+  get categories(): Category[] {
+    return this._categories.getValue()
+  }
 
   constructor(private http: HttpClient) {}
 
