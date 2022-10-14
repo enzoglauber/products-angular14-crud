@@ -28,9 +28,9 @@ A experiência de uso fica a seu critério, seja criativo.
 -> Usei a estratégia de pré-carregamento Quicklink, que pré-carrega apenas as rotas associadas aos links na página atual.
   link: https://web.dev/i18n/pt/route-preloading-in-angular/
 
-Com o com
-
-moockon cli no package.json
 READ.ME
 Arrumar o Jest
 Testes unitarios
+
+e2e com
+https://testcafe.io/

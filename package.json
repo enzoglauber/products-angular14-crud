@@ -1,12 +1,31 @@
 {
   "name": "products-angular14-crud",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "author": "Enzo Glauber <enzojob@gmail.com>",
+  "contributors": [
+    "Enzo Glauber <enzojob@gmail.com>"
+  ],
+  "keywords": [
+    "angular",
+    "angular 14",
+    "angular-starter",
+    "angular starter",
+    "angular-boilerplate",
+    "angular boilerplate",
+    "angular-template",
+    "angular template"
+  ],
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config ./config/proxy.json",
+    "start:all": "npm run mock && npm run start",
+    "start": "ng serve --proxy-config ./config/proxy.json -o",
+    "mock": "mockoon-cli start --data mock.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
+    "test:watch": "jest --watch",
+    "test:ci": "jest --runInBand",
+    "test:coverage": "jest --coverage",
     "clear": "npx rimraf ./node_modules"
   },
   "dependencies": {
@@ -29,6 +48,7 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.5",
     "@angular/cli": "~14.0.4",
+    "@mockoon/cli": "~2.1.0",
     "@angular/compiler-cli": "^14.0.0",
     "@types/angular": "^1.8.4",
     "@types/jest": "^28.1.3",

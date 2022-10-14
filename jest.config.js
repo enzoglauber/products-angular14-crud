@@ -6,7 +6,8 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/jest-setup.ts'],
   globalSetup: 'jest-preset-angular/global-setup',
   collectCoverage: true,
-  moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
+  // moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
+  testPathIgnorePatterns: ["<rootDir>/dist/jest-global-mocks.ts"],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths || {}, {
     prefix: '<rootDir>/'
   })

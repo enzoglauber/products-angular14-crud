@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { ProductAddComponent } from './product-add.component';
 
@@ -8,6 +10,10 @@ describe('ProductAddComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        MatIconModule,
+        RouterTestingModule
+      ],
       declarations: [ ProductAddComponent ]
     })
     .compileComponents();

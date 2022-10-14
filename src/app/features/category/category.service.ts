@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '@environments/environment';
 import { BehaviorSubject, distinctUntilChanged, map, ReplaySubject, share, timer } from 'rxjs';
-import { environment } from 'src/environments/environment';
 
 import { Category } from './category';
 

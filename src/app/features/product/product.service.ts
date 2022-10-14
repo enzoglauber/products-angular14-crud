@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { environment } from '@environments/environment';
 import {
   BehaviorSubject,
   debounceTime,
@@ -15,10 +16,10 @@ import {
   tap,
   timer,
 } from 'rxjs';
-import { environment } from 'src/environments/environment';
 
 import { Product } from './product';
 import { ProductFilter } from './product-filter/product-filter';
+
 
 @Injectable({
   providedIn: 'root'
