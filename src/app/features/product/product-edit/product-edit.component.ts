@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '@features/category/category.service';
-import { catchError, mergeMap, Observable, of, pluck, timer } from 'rxjs';
+import { catchError, map, mergeMap, Observable, of, timer } from 'rxjs';
 
 import { Product } from '../product';
 import { ProductService } from '../product.service';
@@ -34,7 +34,8 @@ export class ProductEditComponent implements OnInit {
       category: new FormControl('', {validators}),
     });
 
-    this.activatedRoute.data.pipe(pluck('product'))
+    this.activatedRoute.data
+        .pipe(map((data) => data['product'] ?? data))
         .subscribe((product) => this.form.patchValue(product));
   }
 

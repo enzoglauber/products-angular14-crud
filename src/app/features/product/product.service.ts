@@ -7,7 +7,6 @@ import {
   BehaviorSubject,
   debounceTime,
   distinctUntilChanged,
-  EMPTY,
   map,
   Observable,
   ReplaySubject,
@@ -52,7 +51,7 @@ export class ProductService {
     );
   }
 
-  getOne = (id: number) => {
+  getOne = (id: string | undefined) => {
     return this.http.get<Product>(`${environment.bff}/v1/products/${id}`).pipe(
       share({
         connector: () => new ReplaySubject(1),
@@ -61,7 +60,7 @@ export class ProductService {
     );
   }
 
-  save = (entity: Product): Observable<Product> => {
+  save = (entity: Partial<Product>): Observable<Product> => {
     console.log('entity', entity)
     if (entity.id) {
       return this.http.put<Product>(`${environment.bff}/v1/products`, entity)
@@ -72,25 +71,29 @@ export class ProductService {
     }
   }
 
-  delete = (entity: Product): Observable<Product> => {
+  delete = (entity: Partial<Product>): Observable<Partial<Product> | void> => {
     console.log('delete', entity);
-    if (entity.id) {
-      const url = `${environment.bff}/v1/products/${entity.id.toString()}`
-      return this.http.delete<Product>(url).pipe(map(this.success)).pipe(
-        tap(() => this.snackBar.open('Removed successfully!', undefined, {duration: 3000}))
-      );
-    }
-    return EMPTY;
+    const url = `${environment.bff}/v1/products/${entity.id}`
+    return this.http.delete<Product>(url).pipe(
+      tap(() => {
+        this.snackBar.open('Removed successfully!', undefined, {duration: 3000});
+        this.router.navigate(['/products']);
+      })
+    );
   }
 
-  check = (entity: Partial<Product>): Observable<void> => {
-    return this.http.post<void>(`${environment.bff}/v1/products/check`, entity);
+  check = (entity: Pick<Product, 'code'>): Observable<{exist: boolean}> => {
+    return this.http.post<{exist: boolean}>(`${environment.bff}/v1/products/check`, entity);
   }
 
-  get all$(): Observable<any> {
+  get all$(): Observable<Product[]> {
     return this.filter$.pipe(
       switchMap(this.getAll)
     );
+  }
+
+  public setFilter = (value: ProductFilter): void => {
+    this._filter.next(value);
   }
 
   private nextProducts = (value: Product[]): Product[] => {
@@ -98,11 +101,7 @@ export class ProductService {
     return value;
   }
 
-  public setFilter = (value: ProductFilter): void => {
-    this._filter.next(value);
-  }
-
-  public params = (req: Object) => {
+  private params = (req: Object) => {
     let parms = new HttpParams();
     return Object.entries(req).reduce((params, [key, value]) => {
       params = (!!value) ? params.append(key, value.toString()) : params;
@@ -110,7 +109,8 @@ export class ProductService {
     }, parms);
   }
 
-  public success = (product: Product): Product => {
+
+  success = (product: Product): Product => {
     this.snackBar.open('Saved successfully!', undefined, {duration: 3000});
     this.router.navigate(['/products']);
     return product;
