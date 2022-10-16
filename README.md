@@ -23,7 +23,7 @@ Execute o comando `npm t` para executar os testes via [Jest](https://jestjs.io/)
 
 ## Solução proposta
 
-> Adotei as seguintes abortagens a soluções para o desafio:
+> Adotei as seguintes abortagens e soluções para o desafio:
 > - Mobile first
 > - Aplicação responsiva
 > - Tema com as cores do Itaú para o Angular Material
