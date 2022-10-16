@@ -1,14 +1,19 @@
-const { pathsToModuleNameMapper } = require('ts-jest');
-const { compilerOptions } = require('./tsconfig');
+import type { Config } from 'jest';
 
-module.exports = {
+const { pathsToModuleNameMapper } = require('ts-jest');
+const { compilerOptions } = require('./tsconfig.json');
+
+
+const jestConfig: Config = {
   preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['<rootDir>/jest-setup.ts'],
   globalSetup: 'jest-preset-angular/global-setup',
   collectCoverage: true,
-  // moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
+  moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
   testPathIgnorePatterns: ["<rootDir>/dist/jest-global-mocks.ts"],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths || {}, {
-    prefix: '<rootDir>/'
+    prefix: '<rootDir>'
   })
 };
+
+export default jestConfig;

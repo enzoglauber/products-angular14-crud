@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from '@features/category/category.service';
-import { catchError, mergeMap, Observable, of, timer } from 'rxjs';
+import { catchError, EMPTY, mergeMap, Observable, of, timer } from 'rxjs';
 
 import { ProductService } from '../product.service';
 
@@ -31,7 +31,7 @@ export class ProductNewComponent implements OnInit {
     });
   }
 
-  get code() {
+  get code(): AbstractControl<any> | null {
     return this.form.get('code');
   }
 
@@ -40,14 +40,18 @@ export class ProductNewComponent implements OnInit {
     this.productService.save(entity).subscribe();
   }
 
-  check = (control: AbstractControl): Observable<any> => {
-    return timer(350).pipe(
-      mergeMap(() => this.productService.check({ code: control.value })),
-      catchError(this.failure)
-    );
+  check = (control: AbstractControl | null): Observable<any> => {
+    if (!!control) {
+      return timer(350).pipe(
+        mergeMap(() => this.productService.check({ code: control.value })),
+        catchError(this.failure)
+      );
+    } else {
+      return EMPTY;
+    }
   }
 
   failure = ({error}: HttpErrorResponse): any => {
-    return of({exists: true});
+    return of({exist: true});
   }
 }

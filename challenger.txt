@@ -29,8 +29,11 @@ A experiência de uso fica a seu critério, seja criativo.
   link: https://web.dev/i18n/pt/route-preloading-in-angular/
 
 READ.ME
-Arrumar o Jest
+
 Testes unitarios
+  Resolver
+  pipes
+
 
 e2e com
 https://testcafe.io/

@@ -15,7 +15,8 @@ export class ProductResolver implements Resolve<Product> {
     private router: Router
   ) {}
   resolve(route: ActivatedRouteSnapshot): Observable<Product> {
-    return this.productService.getOne(route.params['id']).pipe(
+    const id = route.paramMap.get('id') ?? '0';
+    return this.productService.getOne(id).pipe(
       catchError(() => {
         this.router.navigate(['']);
         return EMPTY;

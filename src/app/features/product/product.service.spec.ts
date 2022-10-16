@@ -57,11 +57,11 @@ describe('ProductService', () => {
         current = items;
       });
 
-      const test = http.expectOne(URL);
-      test.flush(PRODUCTS);
-      http.verify();
+    const test = http.expectOne(URL);
+    test.flush(PRODUCTS);
+    http.verify();
 
-      expect(current).toEqual(productService.products);
+    expect(current).toEqual(productService.products);
   });
 
   it('should get all products with filter', () => {
@@ -78,7 +78,6 @@ describe('ProductService', () => {
     const test = http.expectOne(`${URL}?${params}`);
     test.flush(PRODUCTS);
     http.verify();
-
   });
 
   it('should get one product', () => {

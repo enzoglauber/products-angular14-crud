@@ -30,7 +30,7 @@ export class CategoryService {
     );
   }
 
-  private next = (value: Category[]): Category[] => {
+  next = (value: Category[]): Category[] => {
     this._categories.next(value);
     return value;
   }

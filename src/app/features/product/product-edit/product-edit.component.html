@@ -16,7 +16,7 @@
         <mat-form-field appearance="standard">
           <mat-label>Code</mat-label>
           <input matInput type="number" formControlName="code">
-          <mat-error *ngIf="code?.errors?.['exists']">
+          <mat-error *ngIf="code?.errors?.['exist']">
             This code already exists in the database
           </mat-error>
         </mat-form-field>
@@ -61,7 +61,7 @@
           type="button"
           mat-raised-button
           color="warn"
-          (click)="delete(form.value)"
+          (click)="delete()"
         > Remove
         </button>
       </div>

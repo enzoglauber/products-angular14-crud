@@ -10,7 +10,7 @@ export class CategoryPipe implements PipeTransform {
   ) { }
 
   transform(id: number): string {
-    const category = this.categoryService.categories.find((item) => item?.id === id);
+    const category = this.categoryService.categories.find((item) => item.id === id);
     return category?.name ?? id.toString();
   }
 

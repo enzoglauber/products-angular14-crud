@@ -3,9 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '@features/category/category.service';
-import { catchError, map, mergeMap, Observable, of, timer } from 'rxjs';
+import { catchError, EMPTY, map, mergeMap, Observable, of, timer } from 'rxjs';
 
-import { Product } from '../product';
 import { ProductService } from '../product.service';
 
 @Component({
@@ -35,11 +34,11 @@ export class ProductEditComponent implements OnInit {
     });
 
     this.activatedRoute.data
-        .pipe(map((data) => data['product'] ?? data))
+        .pipe(map((data) => data['product']))
         .subscribe((product) => this.form.patchValue(product));
   }
 
-  get code() {
+  get code(): AbstractControl<any> | null {
     return this.form.get('code');
   }
 
@@ -48,20 +47,25 @@ export class ProductEditComponent implements OnInit {
     this.productService.save(entity).subscribe();
   }
 
-  delete(product: Product): void {
+  delete(): void {
     if (confirm('Are you sure?')) {
-      this.productService.delete(product).subscribe();
+      const entity = this.form.getRawValue();
+      this.productService.delete(entity).subscribe();
     }
   }
 
-  check = (control: AbstractControl): Observable<any> => {
-    return timer(350).pipe(
-      mergeMap(() => this.productService.check({ code: control.value })),
-      catchError(this.failure)
-    );
+  check = (control: AbstractControl | null): Observable<any> => {
+    if (!!control) {
+      return timer(350).pipe(
+        mergeMap(() => this.productService.check({ code: control.value })),
+        catchError(this.failure)
+      );
+    } else {
+      return EMPTY;
+    }
   }
 
   failure = ({error}: HttpErrorResponse): any => {
-    return of({exists: true});
+    return of({exist: true});
   }
 }
