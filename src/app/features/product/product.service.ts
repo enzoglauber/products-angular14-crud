@@ -109,7 +109,6 @@ export class ProductService {
     }, parms);
   }
 
-
   success = (product: Product): Product => {
     this.snackBar.open('Saved successfully!', undefined, {duration: 3000});
     this.router.navigate(['/products']);

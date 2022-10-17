@@ -1,9 +1,9 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, convertToParamMap, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 import { Product } from './product';
 import { ProductResolver } from './product.resolver';
@@ -19,9 +19,8 @@ const PRODUCT: Product = {
 describe('ProductResolver', () => {
   let productResolver: ProductResolver;
   let productService: ProductService;
-
-  let paramMap = new Map([['id', '1']]);
-  let routeMock: any = { snapshot: {}, paramMap };
+  let router: Router;
+  let routeMock: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -32,27 +31,72 @@ describe('ProductResolver', () => {
       ],
       providers: [
         ProductResolver,
-        ProductService,
-        {
-          provide: ActivatedRoute,
-          useValue: routeMock
-        }
+        ProductService
       ]
     });
-    productResolver = TestBed.inject(ProductResolver);
-    productService = TestBed.inject(ProductService);
   });
 
-  it('should be created', () => {
-    expect(productResolver).toBeTruthy();
-  });
+  describe(`when ID is not null`, () => {
+    beforeEach(() => {
+      const paramMap = convertToParamMap({'id': '1'});
+      routeMock = { paramMap } as ActivatedRouteSnapshot;
 
-  it('should get one product with success', () => {
-    jest.spyOn(productService, 'getOne').mockReturnValue(of(PRODUCT));
-    let current: Product | undefined;
-    productResolver.resolve(routeMock).subscribe((response) => {
-      current = response;
+      TestBed.overrideProvider(ActivatedRoute, {useValue: routeMock});
+
+      productResolver = TestBed.inject(ProductResolver);
+      productService = TestBed.inject(ProductService);
+      router = TestBed.inject(Router);
     });
-    expect(current).toBe(PRODUCT);
+
+    it('should be created', () => {
+      expect(productResolver).toBeTruthy();
+    });
+
+    it('should get one product with success', () => {
+      jest.spyOn(productService, 'getOne').mockReturnValue(of(PRODUCT));
+      let current: Product | undefined;
+      productResolver.resolve(routeMock).subscribe((response) => {
+        current = response;
+      });
+      expect(current).toBe(PRODUCT);
+    });
+
+    it('should get one product with failure', fakeAsync(() => {
+      let current: Product | undefined;
+      jest.spyOn(router, 'navigate');
+      jest.spyOn(productService, 'getOne').mockReturnValue(
+        throwError(() => new Error("{exit:true}"))
+      );
+
+      tick(500);
+      productResolver.resolve(routeMock).subscribe((response) => {
+        current = response;
+      });
+
+      expect(current).toBeUndefined();
+      expect(router.navigate).toHaveBeenCalledWith(['']);
+    }));
+  })
+
+  describe(`when ID is null`, () => {
+    beforeEach(() => {
+      const paramMap = convertToParamMap({'id': null});
+      routeMock = { paramMap } as ActivatedRouteSnapshot;
+
+      TestBed.overrideProvider(ActivatedRoute, {useValue: routeMock});
+      router = TestBed.inject(Router);
+      productResolver = TestBed.inject(ProductResolver);
+    });
+
+    it('should be ID is null', fakeAsync(() => {
+      let current: Product | undefined;
+
+      tick(500);
+      productResolver.resolve(routeMock).subscribe((response) => {
+        current = response;
+      });
+
+      expect(current).toBeUndefined();
+    }));
   });
 });

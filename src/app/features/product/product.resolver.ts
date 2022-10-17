@@ -15,12 +15,17 @@ export class ProductResolver implements Resolve<Product> {
     private router: Router
   ) {}
   resolve(route: ActivatedRouteSnapshot): Observable<Product> {
-    const id = route.paramMap.get('id') ?? '0';
-    return this.productService.getOne(id).pipe(
-      catchError(() => {
-        this.router.navigate(['']);
-        return EMPTY;
-      })
-    );
+    const id = route.paramMap.get('id');
+    if (!!id) {
+      return this.productService.getOne(id)
+      .pipe(
+        catchError(() => {
+          this.router.navigate(['']);
+          return EMPTY;
+        })
+      );
+    } else {
+      return EMPTY;
+    }
   }
 }
