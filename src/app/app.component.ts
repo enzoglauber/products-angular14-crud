@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { ResolveEnd, ResolveStart, Router } from '@angular/router';
@@ -12,9 +12,10 @@ import { delay, filter, map, mergeWith } from 'rxjs/operators';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  isLoading$!: Observable<boolean>;
-  private _showLoaderEvents$!: Observable<boolean>;
-  private _hideLoaderEvents$!: Observable<boolean>;
+  progress$!: Observable<boolean>;
+  breakpoint$!: Observable<BreakpointState>;
+  private _showProgressEvent$!: Observable<boolean>;
+  private _hideProgressEvent$!: Observable<boolean>;
 
   private subs: Subscription = new Subscription();
   @ViewChild(MatSidenav) sidenav!: MatSidenav;
@@ -28,33 +29,36 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.subs.add(this.categoryService.getAll().subscribe());
 
-    this._showLoaderEvents$ = this.router.events.pipe(
+    this._showProgressEvent$ = this.router.events.pipe(
       filter((e) => e instanceof ResolveStart),
       map(() => true)
     );
-    this._hideLoaderEvents$ = this.router.events.pipe(
+    this._hideProgressEvent$ = this.router.events.pipe(
       filter((e) => e instanceof ResolveEnd),
       map(() => false)
     );
 
-    this.isLoading$ = this._showLoaderEvents$.pipe(
-      mergeWith(this._hideLoaderEvents$)
+    this.progress$ = this._showProgressEvent$.pipe(
+      mergeWith(this._hideProgressEvent$)
     );
   }
 
   ngAfterViewInit() {
-    this.breakpoint
+    this.breakpoint$ = this.breakpoint
       .observe(['(max-width: 800px)'])
-      .pipe(delay(1))
-      .subscribe((exactly) => {
-        if (exactly.matches) {
-          this.sidenav.mode = 'over';
-          this.sidenav.close();
-        } else {
-          this.sidenav.mode = 'side';
-          this.sidenav.open();
-        }
-      });
+      .pipe(delay(1));
+
+    this.breakpoint$.subscribe(this.mode);
+  }
+
+  mode = (state: BreakpointState) => {
+    if (state.matches) {
+      this.sidenav.mode = 'over';
+      this.sidenav.close();
+    } else {
+      this.sidenav.mode = 'side';
+      this.sidenav.open();
+    }
   }
 
   ngOnDestroy(): void {
