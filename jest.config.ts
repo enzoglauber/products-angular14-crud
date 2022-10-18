@@ -6,6 +6,7 @@ const { compilerOptions } = require('./tsconfig.json');
 
 const jestConfig: Config = {
   preset: 'jest-preset-angular',
+  testRunner: 'jasmine2',
   setupFilesAfterEnv: ['<rootDir>/jest-setup.ts'],
   globalSetup: 'jest-preset-angular/global-setup',
   collectCoverage: true,
