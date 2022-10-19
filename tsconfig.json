@@ -24,6 +24,7 @@
     "types": ["jest", "node"],
     "paths": {
       "@environments/*": ["src/environments/*"],
+      "@helpers/*": ["src/helpers/*"],
       "@features/*": ["src/app/features/*"],
       "@shared/*": ["src/app/shared/*"]
     }
