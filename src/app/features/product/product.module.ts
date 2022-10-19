@@ -16,6 +16,7 @@ import { ProductEditComponent } from './product-edit/product-edit.component';
 import { ProductFilterComponent } from './product-filter/product-filter.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductNewComponent } from './product-new/product-new.component';
+import { ProductComponent } from './product.component';
 import { PRODUCT_ROUTES } from './product.routes';
 
 const MATERIAL = [
@@ -43,7 +44,8 @@ const MATERIAL = [
     ProductListComponent,
     ProductFilterComponent,
     ProductNewComponent,
-    CategoryPipe
+    CategoryPipe,
+    ProductComponent
   ]
 })
 export class ProductModule { }
