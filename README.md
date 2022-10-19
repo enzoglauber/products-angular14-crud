@@ -34,4 +34,5 @@ Execute o comando `npm t` para executar os testes via [Jest](https://jestjs.io/)
 > - Progress loader com observable no carregamento do produto para edição
 > - Lista de Produtos com pipe async e timing cache
 > - Mock feito com moockon
+> - Rota lazy
 > - Usei a estratégia de pré-carregamento [Quicklink]( https://web.dev/i18n/pt/route-preloading-in-angular/), que pré-carrega apenas as rotas associadas aos links na página atual.
