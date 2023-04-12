@@ -13,19 +13,19 @@ export const PRODUCT_ROUTES: Routes = [
     children: [
       {
         path: '',
-        component: ProductListComponent
+        component: ProductListComponent,
       },
       {
         path: 'new',
-        component: ProductNewComponent
+        component: ProductNewComponent,
       },
       {
         path: 'edit/:id',
         component: ProductEditComponent,
         resolve: {
-          product: ProductResolver
+          product: ProductResolver,
         },
-      }
-    ]
-  }
+      },
+    ],
+  },
 ];

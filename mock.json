@@ -1,6 +1,6 @@
 {
-  "uuid": "3027ec57-f6de-4e72-b9e3-a5f5f88335b9",
-  "lastMigration": 22,
+  "uuid": "3fb8b0ac-79ac-4841-b736-82258e8e4f35",
+  "lastMigration": 24,
   "name": "Mock",
   "endpointPrefix": "bff",
   "latency": 0,
@@ -8,14 +8,14 @@
   "hostname": "0.0.0.0",
   "routes": [
     {
-      "uuid": "f532a510-af9d-48c6-94e0-addcc8ecabeb",
+      "uuid": "6aa1936a-0242-4d85-bf60-91b90a4b9c5c",
       "documentation": "LIST",
       "method": "get",
       "endpoint": "v1/products",
       "responses": [
         {
-          "uuid": "20ee91c6-73f7-4d5a-b73e-2261cd221598",
-          "body": "[\r\n  {{#if (urlParam 'category')}}\r\n  {{# repeat (faker 'datatype.number' min=1 max=4) }}\r\n  {{setVar 'random' (oneOf (array 1 2 3))}}\r\n  {\r\n    \"id\": \"{{ faker 'random.uuid' }}\",\r\n    \"code\": {{queryParam 'code'}},\r\n    \"name\": \"{{ faker 'name.firstName' }} {{ faker 'name.lastName' }}\",\r\n    \"category\": {{queryParam 'category' random}}\r\n  },\r\n  {{/repeat}}\r\n  {{else if (urlParam 'code')}}\r\n  {{# repeat (faker 'datatype.number' min=1 max=4) }}\r\n  {{setVar 'random' (oneOf (array 1 2 3))}}\r\n  {\r\n    \"id\": \"{{ faker 'random.uuid' }}\",\r\n    \"code\": {{queryParam 'code'}},\r\n    \"name\": \"{{ faker 'name.firstName' }} {{ faker 'name.lastName' }}\",\r\n    \"category\": {{queryParam 'category' random}}\r\n  },\r\n  {{/repeat}}\r\n  {{else}}\r\n  {{# repeat (faker 'datatype.number' min=7 max=10) }}\r\n  {{setVar 'random' (oneOf (array 1 2 3))}}\r\n  {\r\n    \"id\": \"{{ faker 'random.alpha' 10 }}\",\r\n    \"code\": {{@index}},\r\n    \"name\": \"{{ faker 'name.firstName' }} {{ faker 'name.lastName' }}\",\r\n    \"category\": {{queryParam 'category' random}}\r\n  },\r\n  {{/repeat}}\r\n  {{/if}}\r\n]",
+          "uuid": "8a4bc90e-1ea8-4bbc-9c94-ef6b60388d18",
+          "body": "[\r\n  {{#if (urlParam 'category')}}\r\n  {{# repeat (faker 'datatype.number' min=1 max=4) }}\r\n  {{setVar 'random' (oneOf (array 1 2 3))}}\r\n  {\r\n    \"id\": \"{{ faker 'datatype.uuid' }}\",\r\n    \"code\": {{queryParam 'code'}},\r\n    \"name\": \"{{ faker 'name.firstName' }} {{ faker 'name.lastName' }}\",\r\n    \"category\": {{queryParam 'category' @random}}\r\n  },\r\n  {{/repeat}}\r\n  {{else if (urlParam 'code')}}\r\n  {{# repeat (faker 'datatype.number' min=1 max=4) }}\r\n  {{setVar 'random' (oneOf (array 1 2 3))}}\r\n  {\r\n    \"id\": \"{{ faker 'datatype.uuid' }}\",\r\n    \"code\": {{queryParam 'code'}},\r\n    \"name\": \"{{ faker 'name.firstName' }} {{ faker 'name.lastName' }}\",\r\n    \"category\": {{queryParam 'category' @random}}\r\n  },\r\n  {{/repeat}}\r\n  {{else}}{{# repeat (faker 'datatype.number' min=7 max=10) }}{{setVar 'random' (oneOf (array 1 2 3))}}\r\n  {\r\n    \"id\": \"{{ faker 'datatype.uuid' }}\",\r\n    \"code\": {{@index}},\r\n    \"name\": \"{{ faker 'name.firstName' }} {{ faker 'name.lastName' }}\",\r\n    \"category\": {{queryParam 'category' @random}}\r\n  }\r\n  {{/repeat}}\r\n  {{/if}}\r\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "",
@@ -26,21 +26,23 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "databucketID": "",
+          "bodyType": "INLINE"
         }
       ],
       "enabled": true,
       "responseMode": null
     },
     {
-      "uuid": "78c7df0d-2717-4324-954b-4f4e62447095",
+      "uuid": "2f44bba3-62d1-4cef-b6ff-3d8ad5e4f930",
       "documentation": "ONE",
       "method": "get",
       "endpoint": "v1/products/:id",
       "responses": [
         {
-          "uuid": "c0a6b1f9-7044-4f53-8127-381d371ed3bf",
-          "body": "{{setVar 'random' (oneOf (array 1 2 3))}}\r\n{\r\n  \"id\": \"{{urlParam 'id'}}\",\r\n  \"code\": {{ faker 'random.number' min=14 max=22 }},\r\n  \"name\": \"{{ faker 'name.firstName' }} {{ faker 'name.lastName' }}\",\r\n  \"category\": {{queryParam 'category' random}}\r\n}",
+          "uuid": "7e16f1c9-7824-4718-a616-43cdfc0ff108",
+          "body": "{{setVar 'random' (oneOf (array 1 2 3))}}\r\n{\r\n  \"id\": \"{{urlParam 'id'}}\",\r\n  \"code\": {{ faker 'datatype.number' min=14 max=22 }},\r\n  \"name\": \"{{ faker 'name.firstName' }} {{ faker 'name.lastName' }}\",\r\n  \"category\": {{queryParam 'category' @random}}\r\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "",
@@ -51,21 +53,23 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "databucketID": "",
+          "bodyType": "INLINE"
         }
       ],
       "enabled": true,
       "responseMode": null
     },
     {
-      "uuid": "72963bde-84c1-4c36-8e31-a1d16356891c",
+      "uuid": "e5de1e12-e5ae-44c8-87ae-f009fd653b54",
       "documentation": "ADD",
       "method": "post",
       "endpoint": "v1/products",
       "responses": [
         {
-          "uuid": "62ff4e07-85bc-42ce-a081-e0cea2aaee33",
-          "body": "{\r\n  \"id\": \"{{ faker 'random.uuid' }}\",\r\n  \"code\": {{body 'code'}},\r\n  \"name\": \"{{ body 'name' }}\",\r\n  \"category\": {{body 'category'}}\r\n}",
+          "uuid": "93b7513c-0cd5-47f3-88c5-4352cbbf6510",
+          "body": "{\r\n  \"id\": \"{{ faker 'datatype.uuid' }}\",\r\n  \"code\": {{body 'code'}},\r\n  \"name\": \"{{ body 'name' }}\",\r\n  \"category\": {{body 'category'}}\r\n}",
           "latency": 0,
           "statusCode": 201,
           "label": "",
@@ -76,20 +80,22 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "databucketID": "",
+          "bodyType": "INLINE"
         }
       ],
       "enabled": true,
       "responseMode": null
     },
     {
-      "uuid": "164bdb47-23dd-4b44-9601-94e4e0a25a16",
+      "uuid": "8badd358-c109-44a6-b88b-3987afae240f",
       "documentation": "EDIT",
       "method": "put",
       "endpoint": "v1/products",
       "responses": [
         {
-          "uuid": "940fec04-6be1-44dd-8e12-08b2b1f3baf7",
+          "uuid": "ccb144e6-7094-412a-b5a6-ed5d4c4f46d6",
           "body": "{\r\n  \"id\": \"{{body 'id'}}\",\r\n  \"code\": {{body 'code'}},\r\n  \"name\": \"{{ body 'name' }}\",\r\n  \"category\": {{body 'category'}}\r\n}",
           "latency": 2000,
           "statusCode": 200,
@@ -101,21 +107,23 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "databucketID": "",
+          "bodyType": "INLINE"
         }
       ],
       "enabled": true,
       "responseMode": null
     },
     {
-      "uuid": "8dd13b08-451c-455a-a849-a603e978e0e7",
+      "uuid": "b6d0f996-94a8-4288-9e4d-10a9e9d10ed2",
       "documentation": "REMOVE",
       "method": "delete",
       "endpoint": "v1/products/:id",
       "responses": [
         {
-          "uuid": "a49c3e82-2e2d-4227-b935-e8c6d0471701",
-          "body": "{\r\n  \"id\": \"{{urlParam 'id'}}\"\r\n}",
+          "uuid": "c219c7d3-1f99-4951-b3bf-d4b6c83610aa",
+          "body": "{\n  \"id\": \"{{urlParam 'id'}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "",
@@ -126,20 +134,22 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "databucketID": "",
+          "bodyType": "INLINE"
         }
       ],
       "enabled": true,
       "responseMode": null
     },
     {
-      "uuid": "3f1b4e76-99fd-4e80-a3b6-10feea4381ab",
+      "uuid": "f6667175-5ad3-4286-a1a7-15c53000e5a5",
       "documentation": "CHECK CODE",
       "method": "post",
       "endpoint": "v1/products/check",
       "responses": [
         {
-          "uuid": "d7fa1708-ce75-4f05-823e-aec7dd33dcd0",
+          "uuid": "f549c304-dcd8-45bf-8f9d-95f4c8e2c8a8",
           "body": "{exist: true}",
           "latency": 0,
           "statusCode": 422,
@@ -159,10 +169,12 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false
+          "default": false,
+          "databucketID": "",
+          "bodyType": "INLINE"
         },
         {
-          "uuid": "8b4b6632-e9c0-4aee-8888-103cb373713b",
+          "uuid": "3671a9c0-f979-4420-a27a-e8b61f468788",
           "body": "",
           "latency": 0,
           "statusCode": 202,
@@ -174,20 +186,22 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "databucketID": "",
+          "bodyType": "INLINE"
         }
       ],
       "enabled": true,
       "responseMode": null
     },
     {
-      "uuid": "26bb7733-3ae8-4999-8b62-8f5cb13a7b87",
+      "uuid": "2cb41c99-5b7c-4e60-a69c-78fc6ef8d288",
       "documentation": "LIST",
       "method": "get",
       "endpoint": "v1/categories",
       "responses": [
         {
-          "uuid": "59c3e674-8db2-46f4-ad57-009a4d708353",
+          "uuid": "a2ff5e92-bfc6-4445-871a-6467f9d3083c",
           "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Atacado\"\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Varejo\"\n  },\n  {\n    \"id\": 3,\n    \"name\": \"Internacional\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
@@ -199,7 +213,9 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true
+          "default": true,
+          "databucketID": "",
+          "bodyType": "INLINE"
         }
       ],
       "enabled": true,
@@ -223,6 +239,18 @@
     {
       "key": "Content-Type",
       "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
     }
   ],
   "proxyReqHeaders": [
@@ -236,5 +264,6 @@
       "key": "",
       "value": ""
     }
-  ]
+  ],
+  "data": []
 }

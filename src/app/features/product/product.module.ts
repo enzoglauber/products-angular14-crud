@@ -26,7 +26,7 @@ const MATERIAL = [
   MatInputModule,
   MatSelectModule,
   MatTableModule,
-  MatSnackBarModule
+  MatSnackBarModule,
 ];
 
 @NgModule({
@@ -36,7 +36,7 @@ const MATERIAL = [
     ReactiveFormsModule,
 
     ...MATERIAL,
-    RouterModule.forChild(PRODUCT_ROUTES)
+    RouterModule.forChild(PRODUCT_ROUTES),
   ],
   declarations: [
     ProductAddComponent,
@@ -45,7 +45,7 @@ const MATERIAL = [
     ProductFilterComponent,
     ProductNewComponent,
     CategoryPipe,
-    ProductComponent
-  ]
+    ProductComponent,
+  ],
 })
-export class ProductModule { }
+export class ProductModule {}

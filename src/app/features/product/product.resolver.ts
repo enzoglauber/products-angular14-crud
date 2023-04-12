@@ -7,19 +7,15 @@ import { Product } from './product';
 import { ProductService } from './product.service';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class ProductResolver implements Resolve<Product> {
-  constructor(
-    private productService: ProductService,
-    private router: Router
-  ) {}
+  constructor(private productService: ProductService, private router: Router) {}
   resolve(route: ActivatedRouteSnapshot): Observable<Product> {
     const id = route.paramMap.get('id');
     if (!!id) {
-      return this.productService.getOne(id)
-      .pipe(
-        catchError(() => {
+      return this.productService.getOne(id).pipe(
+        catchError((error) => {
           this.router.navigate(['']);
           return EMPTY;
         })
